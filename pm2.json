@@ -1,0 +1,9 @@
+{
+	"apps": [
+		{
+			"name": "Staking-Titan",
+			"script": "npm",
+			"args": "start"
+		}
+	]
+}

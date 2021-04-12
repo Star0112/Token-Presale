@@ -1,0 +1,11 @@
+.myinput {
+    width: 100%;
+    /* background-color: black; */
+    border-radius: 10px;
+    color: #000000;
+    border: 1px solid #ffffff59;
+    padding: 3px;
+    padding-left: 10px;
+    /* margin-bottom: 10px; */
+    outline: 0px;
+}

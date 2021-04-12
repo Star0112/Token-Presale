@@ -1,0 +1,44 @@
+.wbutton {
+    width: 100%;
+    background-color: #150000;
+    border-radius: 10px;
+    color: white;
+    border: 1px solid #ffffff59;
+    text-align: center;
+    padding: 3px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.ybutton {
+    width: 100%;
+    background-color: #181C27;
+    border-radius: 10px;
+    color: #EB5757;
+    border: 1px solid #ffffff59;
+    text-align: center;
+    padding: 3px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 7px;
+}
+
+.ybutton:hover {
+    border-color: #EB5757;
+}
+
+.labelButton {
+    color: #EB5757;
+    cursor: pointer;
+    display: inline;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    border: 1px solid #EB5757;
+    border-radius: 5px;
+    
+}
+
+.labelButton:hover {
+    background-color: #EB5757;
+    color: white;
+}

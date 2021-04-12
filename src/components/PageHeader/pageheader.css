@@ -1,0 +1,18 @@
+.pageheader {
+    margin-bottom: 5px;
+    margin-top: 15px;
+}
+
+h2 {
+    color: #007bff;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: white;
+}
+
+h2:hover {
+    color: #48a0ff;
+}
+
+.content {
+    color: #007bff;
+}

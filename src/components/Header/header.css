@@ -1,0 +1,85 @@
+.navbar {
+    /* background-color: #222 !important; */
+    border-bottom: 1px solid #343a40;
+    padding-left: 50px !important;
+    padding-right: 50px !important;
+}
+
+.navbar-brand {
+    color: #ffff !important;
+    font-size: 1.8em !important;
+    font-weight: 800;
+}
+
+.nav-link {
+    color: #ffffff !important;
+    text-align: center;
+    font-size: 1.2em !important;
+    font-weight: 500;
+    padding-right: 20px !important;
+    padding-left: 0px !important;
+}
+
+.menu-item {
+    font-size: 28px;
+    color: white;
+    padding-right: 50px;
+}
+
+a:link {
+    text-decoration: none !important;
+}
+
+a:visited {
+    text-decoration: none !important;
+}
+
+a:hover {
+    text-decoration: none !important;
+    color: #eb5757 !important;
+}
+
+a:active {
+    text-decoration: none !important;
+}
+
+.nav-link:active {
+    color: #eb5757 !important;
+}
+
+.nav-link:hover {
+    color: #eb5757 !important;
+}
+
+.navbar-collapse {
+    align-items: flex-end !important;
+}
+
+.navbar-toggler {
+    border-color: #fb6542 !important;
+}
+
+.navbar-toggler-icon {
+    background-image: url(../../images/burger.png) !important;
+}
+
+.mr-auto {
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+}
+
+@media screen and (max-width: 480px) {
+    .navbar {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+
+    .nav-link {
+        font-size: 28px !important;
+    }
+    .navbar-brand {
+        font-size: 1.5em !important;
+        font-weight: 600;
+    }
+}

@@ -1,0 +1,11 @@
+.layout {
+    width: 100%;
+    /* max-width: 1280px; */
+    margin: 0 auto;
+    /* background-position: center;
+    background-size: cover; */
+
+    display: flex;
+    flex-direction: column;
+    background-image: url(../images/vault_background.png);
+}

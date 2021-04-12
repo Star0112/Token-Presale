@@ -1,0 +1,23 @@
+@font-face {
+  font-family: "VT323";
+  src: local("VT323"), url(./fonts/VT323-Regular.ttf) format("truetype");
+}
+
+body {
+  margin: 0;
+  /* font-family: VT323 !important; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #20232d !important;
+  font-size: 20px !important;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+@media screen and (max-width: 480px) {
+  body {
+    font-size: 16px !important;
+  }
+}

@@ -1,0 +1,39 @@
+.footer {
+    height: 62px;
+    padding-top: 10px;
+}
+
+ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 0px 16px;
+    text-decoration: none;
+}
+
+.link-icon {
+    opacity: 0.8;
+    margin-bottom: 20px;
+}
+
+.link-icon:hover {
+    opacity: 1;
+}
+
+.icon:hover {
+    width: 37px;
+    height: 37px;
+}
