@@ -59,16 +59,11 @@ function Presale() {
     const [purchasedToken, setPurchasedToken] = useState(new BigNumber(0));
     const [price, setPrice] = useState(new BigNumber(1));
 
-    const [values, setValues] = useState({
-        stakeAmount: '0',
-        unstakeAmount: '0',
-        claimAmount: '0',
-    });
+    const [value, setValue] = useState(0);
 
     const [progress, setProgress] = useState(false);
 
     const [userBalance, setUserBalance] = useState(new BigNumber(0));
-    const [minDepositAmount, setMinDepositAmount] = useState(new BigNumber(0));
 
     const [timerID, setTimerID] = useState(0);
     const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -78,7 +73,7 @@ function Presale() {
 
     let transactionType = '';
 
-    const fetchAllDataFromContract = useCallback(async (firstFlag = false, transactionType = '') => {
+    const fetchAllDataFromContract = useCallback(async () => {
         setIsOn(await getPresaleStatus())
         setUserBalance(await getBalance(address));
         setUserBNBBalance(await getBNBBalance(address));
@@ -96,7 +91,7 @@ function Presale() {
             }, 20000);
 
             setTimerID(tempTimerID);
-            fetchAllDataFromContract(true);
+            fetchAllDataFromContract();
         }
     }, [address])
 
@@ -109,47 +104,35 @@ function Presale() {
 
 
     const onChangeHandler = (event) => {
-        setValues({
-            ...values,
-            [event.target.name]: event.target.value,
-        });
+        setValue(event.target.value);
     };
 
     const transactionDone = () => {
-        setValues({
-            stakeAmount: '0',
-            unstakeAmount: '0',
-            claimAmount: '0',
-        });
+        setValue(0);
         setProgress(false);
-        fetchAllDataFromContract(false, transactionType);
+        fetchAllDataFromContract();
     }
 
     const transactionError = (err) => {
         setProgress(false);
     }
 
-    const onStake = async (event) => {
-        if (address == null || progress || values.stakeAmount === '' || !values)
+    const onPurchase = async (event) => {
+        if (address == null || progress || !value)
             return;
 
-        const stakeAmount = bnMultipledByDecimals(new BigNumber(values.stakeAmount));
-
-        if (stakeAmount.lt(minDepositAmount)) {
-            NotificationManager.warning(`Minimum deposit amount is ${bnToDec(minDepositAmount).toFixed(1)} ETH`);
-            return;
-        }
+        const purchaseAmount = bnMultipledByDecimals(new BigNumber(value));
 
         setProgress(true);
 
-        const encodedABI = presaleContract.contract.methods.stake().encodeABI();
+        const encodedABI = presaleContract.contract.methods.purchase().encodeABI();
 
-        transactionType = 'stake';
+        transactionType = 'purchase';
 
         if (isMobile)
-            await mobileSendTransaction(address, presaleContract.address, encodedABI, transactionDone, transactionError, stakeAmount.toString(10));
+            await mobileSendTransaction(address, presaleContract.address, encodedABI, transactionDone, transactionError, purchaseAmount.toString(10));
         else
-            await sendTransaction(address, presaleContract.address, encodedABI, transactionDone, transactionError, stakeAmount.toString(10));
+            await sendTransaction(address, presaleContract.address, encodedABI, transactionDone, transactionError, purchaseAmount.toString(10));
     }
 
     useEffect(async () => {
@@ -192,7 +175,7 @@ function Presale() {
                                         title='Your Locked Token'
                                     >
                                         <span className="numberSpan">
-                                            {bnDivdedByDecimals(purchasedToken.multipliedBy(price)).toFormat(0)} fpan ({bnDivdedByDecimals(purchasedToken).toFormat(4)}BNB)
+                                            {bnDivdedByDecimals(purchasedToken, 9).toFormat(0)} fpan ({bnDivdedByDecimals(purchasedToken.dividedBy(price), 9).toFormat(4)}BNB)
                                         </span>
                                     </Form>
                                 </Col>
@@ -211,7 +194,7 @@ function Presale() {
                                     <Form
                                         title='Total Locked Token'
                                     >
-                                        <span className="numberSpan">{bnDivdedByDecimals(lockedAmount, 9).toFormat(0)} fpan ({bnDivdedByDecimals(presaleAmount.dividedBy(price)).toFormat(4)}BNB)</span>
+                                        <span className="numberSpan">{bnDivdedByDecimals(lockedAmount, 9).toFormat(0)} fpan ({bnDivdedByDecimals(lockedAmount.dividedBy(price), 9).toFormat(4)}BNB)</span>
                                     </Form>
                                 </Col>
                                 <Col xs={12} sm={4}>
@@ -248,14 +231,13 @@ function Presale() {
                                                             label='My BNB Balance'
                                                             name='stakeAmount'
                                                             balance={userBNBBalance}
-                                                            currentVal={values.stakeAmount}
+                                                            currentVal={value}
                                                             onChangeHandler={onChangeHandler}
                                                         />
                                                     </Col>
                                                     <Col md={12}>
                                                         <Button
-                                                            onClickHandler={onStake}
-                                                            color='yellow'
+                                                            onClickHandler={onPurchase}
                                                             disabled={!isOn}
                                                         >
                                                             BUY

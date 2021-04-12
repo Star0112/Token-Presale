@@ -24,7 +24,6 @@ const sendTransaction = async (fromAddress, toAddress, encodedABI, successCallBa
       const tx = {
         from: fromAddress,
         to: toAddress,
-        // gas: gasLimit,
         gasPrice: web3.utils.toHex(gasPrice), //`0xAB5D04C00`,
         data: encodedABI,
         value: wei
@@ -50,30 +49,18 @@ const sendTransaction = async (fromAddress, toAddress, encodedABI, successCallBa
 const mobileSendTransaction = async (fromAddress, toAddress, encodedABI, successCallBack, errorCallBack, wei = `0x0`) => {
   if (web3.connected) {
     try {
-      // gasPrice = '0x${gasPrice.toString(16)';
       const tx = {
         from: fromAddress,
         to: toAddress,
-        // gas: gasLimit,
-        // chainId: 3,
         data: encodedABI,
         value: wei
       };
-      // console.log("params: ==>", tx);
-
-      // const txHash = await window.ethereum.request({
-      //   method: 'eth_sendTransaction',
-      //   params: [tx],
-      // });
-      // return txHash;
 
       web3.sendTransaction(tx)
         .then((result) => {
-          // Returns transaction id (hash)
           successCallBack();
         })
         .catch((error) => {
-          // Error returned when rejected
           errorCallBack();
         });
 

@@ -12,7 +12,7 @@ function Footer() {
 
     return (
         <div className='footer'>
-            <ul>
+            {/* <ul>
                 <li className="link-icon" >
                     <a href='https://t.me/DAOTitan' target='_blank' rel="noreferrer">
                         <img src={telegram} alt="Telegram" className="icon" />
@@ -48,7 +48,7 @@ function Footer() {
                         <img src={uniswap} alt="Uniswap" className="icon" />
                     </a>
                 </li>
-            </ul>
+            </ul> */}
         </div>
     );
 

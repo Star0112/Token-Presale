@@ -12,7 +12,7 @@ import { isMobile } from 'react-device-detect';
 import { connector } from "../../fpan/web3";
 import { setAddress, setNetworkId } from "../../redux/actions";
 
-// import logo from '../../images/titan_logo.png';
+import logo from '../../images/logo.png';
 import './header.css';
 
 function Header() {
@@ -90,12 +90,12 @@ function Header() {
 
     return (
         <Navbar collapseOnSelect expand="lg">
-            {/* <Navbar.Brand href="/"><img src={logo} className="logo" alt='TITAN Logo' /></Navbar.Brand> */}
+            <Navbar.Brand href="/"><img src={logo} style={{ width: 50, height: 50 }} alt='TITAN Logo' /></Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
                     <NavLink className="menu-item" to="/presale" activeStyle={{ 'color': "#007bff" }}>PRESALE</NavLink>
-                    <Nav.Link className="menu-item" href="https://cryptoexploit.com/introducing-titan-token-your-premiere-crypto-stake-token/" activeStyle={{ 'color': "#007bff" }} target='_blank' rel="noreferrer">ABOUT</Nav.Link>
+                    {/* <Nav.Link className="menu-item" href="https://cryptoexploit.com/introducing-titan-token-your-premiere-crypto-stake-token/" activeStyle={{ 'color': "#007bff" }} target='_blank' rel="noreferrer">ABOUT</Nav.Link> */}
                 </Nav>
                 <Nav>
                     <Nav.Link href="#">
