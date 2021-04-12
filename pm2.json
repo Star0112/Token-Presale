@@ -1,7 +1,7 @@
 {
 	"apps": [
 		{
-			"name": "Staking-Titan",
+			"name": "FPEN-Presale",
 			"script": "npm",
 			"args": "start"
 		}

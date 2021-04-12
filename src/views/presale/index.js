@@ -15,27 +15,17 @@ import {
     getMinimumDepositAmount,
     getSwapReward,
     getTitanReward,
-    getAllocPointForWETH,
-    getAllocPointForWBTC,
-    getAllocPointForYFI,
-    getTVL,
     getRestTimeForTitanRewards,
     getRestTimeForSwapRewards,
     getIsEnalbledLock,
     getStakedUserInfo,
-    getAPY,
     getBurnFee,
     getEarlyUnstakeFee
 } from '../../fpen/vault';
-import { getTitanPrice, getMarketcap } from '../../subgraphs/api';
 import {
     networkId,
-    vaultContract,
-    titanETHPairContract,
-    yfiETHPairContract,
-    wbtcETHPairContract
+    presaleContract,
 } from '../../fpen/contracts';
-import { getAmountOut } from '../../fpen/univ2pair';
 import { Row, Col } from 'react-bootstrap'
 import { NotificationManager } from 'react-notifications';
 import Page from '../../components/Page';
@@ -57,7 +47,7 @@ const override = css`
   border-color: red;
 `;
 
-function Vault() {
+function Presale() {
     const address = useSelector(state => state.authUser.address);
     const currentNetworkId = useSelector(state => state.authUser.networkId);
 
@@ -127,9 +117,6 @@ function Vault() {
     const fetchAllDataFromContract = useCallback(async (firstFlag = false, transactionType = '') => {
         setTotalSupply(await getTotalSupply());
         setCirculatingSupply(await getCirculatingSupply());
-        setTVL(await getTVL());
-        setTitanPrice(await getTitanPrice());
-        setMarketcap(await getMarketcap());
         setTotalStakedAmount(await getTotalStakedAmount());
         setUserBalance(await getBalance(address));
         setUserTotalStakedAmount(await getUserTotalStakedAmount(address));
@@ -138,7 +125,6 @@ function Vault() {
         setUserTitanReward(await getTitanReward(address));
         setIsEnalbledLock(await getIsEnalbledLock());
         setStakedUserInfo(await getStakedUserInfo(address));
-        setApy(await getAPY());
     }, [address]);
 
     useEffect(() => {
@@ -163,14 +149,7 @@ function Vault() {
 
     useEffect(async () => {
         if (userSwapReward.pending && userSwapReward.pending.isGreaterThan(new BigNumber(0))) {
-            const wethEstimateAmount = await getAmountOut(titanETHPairContract, bnToDec(userSwapReward.pending), true);
-            const wethRewardAmount = new BigNumber(wethEstimateAmount).times(await getAllocPointForWETH());
-            const wbtcRewardAmount = new BigNumber(wethEstimateAmount).times(await getAllocPointForWBTC());
-            const yfiRewardAmount = new BigNumber(wethEstimateAmount).times(await getAllocPointForYFI());
 
-            setUserWethPendingReward(wethRewardAmount);
-            setUserWbtcPendingReward(await getAmountOut(wbtcETHPairContract, wbtcRewardAmount.toNumber(), false, 8));
-            setUserYfiPendingReward(await getAmountOut(yfiETHPairContract, yfiRewardAmount.toNumber(), false));
         } else {
             setUserWethPendingReward(new BigNumber(0));
             setUserWbtcPendingReward(new BigNumber(0));
@@ -178,14 +157,7 @@ function Vault() {
         }
 
         if (userSwapReward.available && userSwapReward.available.isGreaterThan(new BigNumber(0))) {
-            const wethEstimateAmount = await getAmountOut(userSwapReward.available);
-            const wethRewardAmount = wethEstimateAmount.times(await getAllocPointForWETH()).div(1e18);
-            const wbtcRewardAmount = wethEstimateAmount.times(await getAllocPointForWBTC()).div(1e18);
-            const yfiRewardAmount = wethEstimateAmount.times(await getAllocPointForYFI()).div(1e18);
 
-            setUserWethAvailableReward(wethRewardAmount);
-            setUserWbtcAvailableReward(await getAmountOut(wbtcETHPairContract, wbtcRewardAmount, false));
-            setUserYfiAvailableReward(await getAmountOut(yfiETHPairContract, yfiRewardAmount, false));
         } else {
             setUserWethAvailableReward(new BigNumber(0));
             setUserWbtcAvailableReward(new BigNumber(0));
@@ -235,14 +207,14 @@ function Vault() {
 
         setProgress(true);
 
-        const encodedABI = vaultContract.contract.methods.stake().encodeABI();
+        const encodedABI = presaleContract.contract.methods.stake().encodeABI();
 
         transactionType = 'stake';
 
         if (isMobile)
-            await mobileSendTransaction(address, vaultContract.address, encodedABI, transactionDone, transactionError, stakeAmount.toString(10));
+            await mobileSendTransaction(address, presaleContract.address, encodedABI, transactionDone, transactionError, stakeAmount.toString(10));
         else
-            await sendTransaction(address, vaultContract.address, encodedABI, transactionDone, transactionError, stakeAmount.toString(10));
+            await sendTransaction(address, presaleContract.address, encodedABI, transactionDone, transactionError, stakeAmount.toString(10));
     }
 
     const onClaimAvailableTITANReward = async (event) => {
@@ -258,13 +230,13 @@ function Vault() {
 
         setProgress(true);
 
-        const encodedABI = vaultContract.contract.methods.claimTitanAvailableReward().encodeABI();
+        const encodedABI = presaleContract.contract.methods.claimTitanAvailableReward().encodeABI();
         transactionType = 'claimTitanAvailableReward';
 
         if (isMobile)
-            await mobileSendTransaction(address, vaultContract.address, encodedABI, transactionDone, transactionError);
+            await mobileSendTransaction(address, presaleContract.address, encodedABI, transactionDone, transactionError);
         else
-            await sendTransaction(address, vaultContract.address, encodedABI, transactionDone, transactionError);
+            await sendTransaction(address, presaleContract.address, encodedABI, transactionDone, transactionError);
     }
 
     const onShowConfirmModalForTITAN = async () => {
@@ -329,13 +301,13 @@ function Vault() {
 
         setProgress(true);
 
-        const encodedABI = vaultContract.contract.methods.claimTitanReward().encodeABI();
+        const encodedABI = presaleContract.contract.methods.claimTitanReward().encodeABI();
         transactionType = 'claimTitanReward';
 
         if (isMobile)
-            await mobileSendTransaction(address, vaultContract.address, encodedABI, transactionDone, transactionError);
+            await mobileSendTransaction(address, presaleContract.address, encodedABI, transactionDone, transactionError);
         else
-            await sendTransaction(address, vaultContract.address, encodedABI, transactionDone, transactionError);
+            await sendTransaction(address, presaleContract.address, encodedABI, transactionDone, transactionError);
     }
 
     const onClaimAvailableSwapReward = async (event) => {
@@ -350,13 +322,13 @@ function Vault() {
 
         setProgress(true);
 
-        const encodedABI = vaultContract.contract.methods.claimSwapAvailableReward().encodeABI();
+        const encodedABI = presaleContract.contract.methods.claimSwapAvailableReward().encodeABI();
         transactionType = 'claimSwapAvailableReward';
 
         if (isMobile)
-            await mobileSendTransaction(address, vaultContract.address, encodedABI, transactionDone, transactionError);
+            await mobileSendTransaction(address, presaleContract.address, encodedABI, transactionDone, transactionError);
         else
-            await sendTransaction(address, vaultContract.address, encodedABI, transactionDone, transactionError);
+            await sendTransaction(address, presaleContract.address, encodedABI, transactionDone, transactionError);
     }
 
     const onClaimSwapReward = async (event) => {
@@ -371,13 +343,13 @@ function Vault() {
 
         setProgress(true);
 
-        const encodedABI = vaultContract.contract.methods.claimSwapReward().encodeABI();
+        const encodedABI = presaleContract.contract.methods.claimSwapReward().encodeABI();
         transactionType = 'claimSwapReward';
 
         if (isMobile)
-            await mobileSendTransaction(address, vaultContract.address, encodedABI, transactionDone, transactionError);
+            await mobileSendTransaction(address, presaleContract.address, encodedABI, transactionDone, transactionError);
         else
-            await sendTransaction(address, vaultContract.address, encodedABI, transactionDone, transactionError);
+            await sendTransaction(address, presaleContract.address, encodedABI, transactionDone, transactionError);
     }
 
     const onUnstake = async (event) => {
@@ -394,13 +366,13 @@ function Vault() {
 
         setProgress(true);
 
-        const encodedABI = vaultContract.contract.methods.unstake(unstakeAmount.toString(10)).encodeABI();
+        const encodedABI = presaleContract.contract.methods.unstake(unstakeAmount.toString(10)).encodeABI();
         transactionType = 'unstake';
 
         if (isMobile)
-            await mobileSendTransaction(address, vaultContract.address, encodedABI, transactionDone, transactionError);
+            await mobileSendTransaction(address, presaleContract.address, encodedABI, transactionDone, transactionError);
         else
-            await sendTransaction(address, vaultContract.address, encodedABI, transactionDone, transactionError);
+            await sendTransaction(address, presaleContract.address, encodedABI, transactionDone, transactionError);
     }
 
     return (
@@ -633,4 +605,4 @@ function Vault() {
     );
 }
 
-export default Vault;
+export default Presale;

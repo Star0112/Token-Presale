@@ -1,61 +1,54 @@
 import BigNumber from 'bignumber.js';
-import { titanContract, vaultContract } from './contracts';
+import { fpenContract, presaleContract } from './contracts';
 import { callMethod, bnDivdedByDecimals } from './utils';
-import { getPairBalances, getLPTotalSupply } from './univ2pair.js';
 import { getTotalStakedAmount } from './vault';
 
 // Getters
 export const checkAllowance = async (owner, spender) => {
-  const result = await callMethod(titanContract.contract.methods['allowance'], [owner, spender]);
+  const result = await callMethod(fpenContract.contract.methods['allowance'], [owner, spender]);
   return bnDivdedByDecimals(new BigNumber(result));
 }
 
 export const getBalance = async (address) => {
-  const result = await callMethod(titanContract.contract.methods['balanceOf'], [address]);
+  const result = await callMethod(fpenContract.contract.methods['balanceOf'], [address]);
   return new BigNumber(result);
 }
 
 export const getTransferFee = async () => {
-  const result = await callMethod(titanContract.contract.methods['transferFee'], []);
+  const result = await callMethod(fpenContract.contract.methods['transferFee'], []);
   return result;
 }
 
 export const getVaultAddress = async () => {
-  const result = await callMethod(titanContract.contract.methods['titanVault'], []);
+  const result = await callMethod(fpenContract.contract.methods['titanVault'], []);
   return result;
 }
 
 export const getPaused = async () => {
-  const result = await callMethod(titanContract.contract.methods['Paused'], []);
+  const result = await callMethod(fpenContract.contract.methods['Paused'], []);
   return result;
 }
 
 export const getTokenGovernance = async () => {
-  const result = await callMethod(titanContract.contract.methods['governance'], []);
+  const result = await callMethod(fpenContract.contract.methods['governance'], []);
   return result;
 }
 
 export const getTotalSupply  = async () => {
-  return  new BigNumber(await callMethod(titanContract.contract.methods['totalSupply'], []));
+  return  new BigNumber(await callMethod(fpenContract.contract.methods['totalSupply'], []));
 }
 
 export const getCirculatingSupply  = async () => {
-  const result = new BigNumber(await callMethod(titanContract.contract.methods['totalSupply'], []));
-  const pairTokenBalances = await getPairBalances();
-  const LPTotalSupply = await getLPTotalSupply();
+  const result = new BigNumber(await callMethod(fpenContract.contract.methods['totalSupply'], []));
   const totalStakedAmount =  await getTotalStakedAmount();
-  const titanAmountInVault = new BigNumber(await callMethod(titanContract.contract.methods['balanceOf'], [vaultContract.address]));
-  
-  if (LPTotalSupply.eq(new BigNumber(0))) {
-    return result;
-  }
+  const titanAmountInVault = new BigNumber(await callMethod(fpenContract.contract.methods['balanceOf'], [presaleContract.address]));
 
-  const lockedTITAN = pairTokenBalances['titan'].times(totalStakedAmount.div(LPTotalSupply));
-  return result.minus(lockedTITAN).minus(titanAmountInVault);
+
+  return result.minus(titanAmountInVault).minus(titanAmountInVault);
 }
 
 export const Approve  = async (spender, amount) => {
-  const result = await callMethod(titanContract.contract.methods['approve'], [spender, amount]);
+  const result = await callMethod(fpenContract.contract.methods['approve'], [spender, amount]);
   return result;
 }
 

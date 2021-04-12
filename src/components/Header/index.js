@@ -94,9 +94,7 @@ function Header() {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
-                    <NavLink className="menu-item" to="/vault" activeStyle={{ 'color': "#EB5757" }}>VAULT</NavLink>
-                    <NavLink className="menu-item" to="/lottery" activeStyle={{ 'color': "#EB5757" }} rel="noreferrer">LOTTERY</NavLink>
-                    <NavLink className="menu-item" to="/faq" activeStyle={{ 'color': "#EB5757" }} rel="noreferrer">FAQ</NavLink>
+                    <NavLink className="menu-item" to="/vault" activeStyle={{ 'color': "#EB5757" }}>PRESALE</NavLink>
                     <Nav.Link className="menu-item" href="https://cryptoexploit.com/introducing-titan-token-your-premiere-crypto-stake-token/" activeStyle={{ 'color': "#EB5757" }} target='_blank' rel="noreferrer">ABOUT</Nav.Link>
                 </Nav>
                 <Nav>

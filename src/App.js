@@ -5,9 +5,7 @@ import { isMobile } from 'react-device-detect';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import { setAddress, setNetworkId, setError } from "./redux/actions";
 import Layout from './layout';
-import Vault from './views/vault';
-import Lottery from './views/lottery';
-import FAQ from './views/faq';
+import Presale from './views/presale';
 import { providerUrl, Web3, connector } from './fpen/web3';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -80,16 +78,10 @@ class App extends Component {
       <Router>
         <Layout>
           <Switch>
-            <Route path="/vault" exact>
-              <Vault />
+            <Route path="/presale" exact>
+              <Presale />
             </Route>
-            <Route path="/lottery" exact>
-              <Lottery />
-            </Route>
-            <Route path="/faq" exact>
-              <FAQ />
-            </Route>
-            <Redirect to="/vault" />
+            <Redirect to="/presale" />
           </Switch>
           <NotificationContainer />
         </Layout>
