@@ -7,25 +7,35 @@ import { web3 } from './web3';
 // Getters
 export const getStartTime = async () => {
     const result = await callMethod(presaleContract.contract.methods['startTime'], []);
-    return new BigNumber(result);
+    return result;
 }
 
 export const getEndTime = async () => {
     const result = await callMethod(presaleContract.contract.methods['endTime'], []);
-    return new BigNumber(result);
+    return result;
 }
 
 export const getPresaleStatus = async () => {
     const result = await callMethod(presaleContract.contract.methods['presaleIsOn'], []);
+    return result;
+}
+
+export const getPresaleCap = async () => {
+    const result = await callMethod(presaleContract.contract.methods['presaleCapInBNB'], []);
+    return new BigNumber(result);
+}
+
+export const getPrice = async () => {
+    const result = await callMethod(presaleContract.contract.methods['salePrice'], []);
     return new BigNumber(result);
 }
 
 export const getUnclimedPurchasedToken = async () => {
-    const result = await callMethod(presaleContract.contract.methods['unclimedPurchasedToken'], []);
+    const result = await callMethod(presaleContract.contract.methods['unclaimedPurchasedToken'], []);
     return new BigNumber(result);
 }
 
 export const getPurchasedToken = async (address) => {
     const result = await callMethod(presaleContract.contract.methods['purchasedToken'], [address]);
-    return { pending: new BigNumber(result.pending), available: new BigNumber(result.available) };
+    return new BigNumber(result);
 }

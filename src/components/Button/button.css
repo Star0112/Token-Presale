@@ -3,7 +3,7 @@
     background-color: #150000;
     border-radius: 10px;
     color: white;
-    border: 1px solid #ffffff59;
+    border: 1px solid #4d424259;
     text-align: center;
     padding: 3px;
     cursor: pointer;
@@ -14,7 +14,7 @@
     width: 100%;
     background-color: #181C27;
     border-radius: 10px;
-    color: #EB5757;
+    color: #007bff;
     border: 1px solid #ffffff59;
     text-align: center;
     padding: 3px;
@@ -24,21 +24,21 @@
 }
 
 .ybutton:hover {
-    border-color: #EB5757;
+    border-color: #007bff;
 }
 
 .labelButton {
-    color: #EB5757;
+    color: #007bff;
     cursor: pointer;
     display: inline;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
-    border: 1px solid #EB5757;
+    border: 1px solid #007bff;
     border-radius: 5px;
     
 }
 
 .labelButton:hover {
-    background-color: #EB5757;
+    background-color: #007bff;
     color: white;
 }

@@ -36,7 +36,7 @@ a:visited {
 
 a:hover {
     text-decoration: none !important;
-    color: #eb5757 !important;
+    color: #007bff !important;
 }
 
 a:active {
@@ -44,11 +44,11 @@ a:active {
 }
 
 .nav-link:active {
-    color: #eb5757 !important;
+    color: #007bff !important;
 }
 
 .nav-link:hover {
-    color: #eb5757 !important;
+    color: #007bff !important;
 }
 
 .navbar-collapse {

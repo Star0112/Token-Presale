@@ -11,13 +11,13 @@
 }
 
 .myinput:active {
-    border-color: #EB5757;
+    border-color: #007bff;
 }
 
 .myinput:hover {
-    border-color: #EB5757;
+    border-color: #007bff;
 }
 
 .myinput::selection {
-    border-color: #EB5757;
+    border-color: #007bff;
 }

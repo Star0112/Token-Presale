@@ -2,17 +2,17 @@ import React from 'react';
 import './button.css';
 
 
-function Button({ children, onClickHandler, color }) {
+function Button({ children, onClickHandler, disabled }) {
     return (
         <>
-            {color === 'yellow' ?
+            {disabled ?
                 (
-                    <div className="ybutton" onClick={(e) => onClickHandler(e)}>
+                    <div className="wbutton">
                         {children}
                     </div>
-                ) : 
+                ) :
                 (
-                    <div className="wbutton" onClick={(e) => onClickHandler(e)}>
+                    <div className="ybutton" onClick={(e) => onClickHandler(e)}>
                         {children}
                     </div>
                 )

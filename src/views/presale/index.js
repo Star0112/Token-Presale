@@ -12,7 +12,14 @@ import {
     getBalance
 } from '../../fpen/token';
 import {
-} from '../../fpen/vault';
+    getStartTime,
+    getEndTime,
+    getPresaleStatus,
+    getPresaleCap,
+    getPrice,
+    getUnclimedPurchasedToken,
+    getPurchasedToken,
+} from '../../fpen/presale';
 import {
     networkId,
     presaleContract,
@@ -41,19 +48,16 @@ function Presale() {
     const address = useSelector(state => state.authUser.address);
     const currentNetworkId = useSelector(state => state.authUser.networkId);
 
-    BigNumber.config({
-        DECIMAL_PLACES: 18,
-        FORMAT: {
-            // string to prepend
-            prefix: '',
-            // decimal separator
-            decimalSeparator: '.',
-            // grouping separator of the integer part
-            groupSeparator: ',',
-            // primary grouping size of the integer part
-            groupSize: 3,
-        }
-    });
+
+
+    const [userBNBBalance, setUserBNBBalance] = useState(new BigNumber(0));
+    const [startTime, setStartTime] = useState(0);
+    const [endTime, setEndTime] = useState(0);
+    const [isOn, setIsOn] = useState(false);
+    const [presaleAmount, setPresaleAmount] = useState(new BigNumber(0));
+    const [lockedAmount, setLockedAmount] = useState(new BigNumber(0));
+    const [purchasedToken, setPurchasedToken] = useState(new BigNumber(0));
+    const [price, setPrice] = useState(new BigNumber(1));
 
     const [values, setValues] = useState({
         stakeAmount: '0',
@@ -63,16 +67,9 @@ function Presale() {
 
     const [progress, setProgress] = useState(false);
 
-    const [totalSupply, setTotalSupply] = useState(new BigNumber(0));
-    const [circulatingSupply, setCirculatingSupply] = useState(new BigNumber(0));
-    const [tvl, setTVL] = useState(new BigNumber(0));
-
-    const [titanPrice, setTitanPrice] = useState(0);
     const [marketcap, setMarketcap] = useState(0);
-    const [totalStakedAmount, setTotalStakedAmount] = useState(new BigNumber(0));
     const [userBalance, setUserBalance] = useState(new BigNumber(0));
     const [minDepositAmount, setMinDepositAmount] = useState(new BigNumber(0));
-    const [userBNBBalance, setUserBNBBalance] = useState(new BigNumber(0));
 
     const [timerID, setTimerID] = useState(0);
     const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -83,10 +80,11 @@ function Presale() {
     let transactionType = '';
 
     const fetchAllDataFromContract = useCallback(async (firstFlag = false, transactionType = '') => {
-        // setTotalSupply(await getTotalSupply());
-        console.log(address)
+        setIsOn(await getPresaleStatus())
         setUserBalance(await getBalance(address));
         setUserBNBBalance(await getBNBBalance(address));
+        setLockedAmount(await getUnclimedPurchasedToken());
+        setPurchasedToken(await getPurchasedToken(address));
     }, [address]);
 
     useEffect(() => {
@@ -104,9 +102,10 @@ function Presale() {
     }, [address])
 
     useEffect(async () => {
-        // setMinDepositAmount(await getMinimumDepositAmount());
-        // setBurnFee(await getBurnFee());
-        // setEarlyUnstakeFee(await getEarlyUnstakeFee());
+        setStartTime(await getStartTime());
+        setEndTime(await getEndTime());
+        setPresaleAmount(await getPresaleCap());
+        setPrice(await getPrice());
     }, []);
 
 
@@ -160,7 +159,6 @@ function Presale() {
         }
     }, [isConfirmed]);
 
-
     return (
         <>
             {progress &&
@@ -168,7 +166,7 @@ function Presale() {
                     <ClockLoader
                         css={override}
                         size={100}
-                        color={"#eb5757"}
+                        color={"#007bff"}
                         loading={progress}
                     />
                 </div>
@@ -185,44 +183,59 @@ function Presale() {
                                     <Form
                                         title='Presale Token'
                                     >
-                                        <span className="numberSpan">{bnDivdedByDecimals(totalSupply).toFormat(4)} fpen</span>
+                                        <span className="numberSpan">
+                                            {bnDivdedByDecimals(presaleAmount.multipliedBy(price)).toFormat(0)} fpen ({bnDivdedByDecimals(presaleAmount).toFormat(2)}BNB)
+                                        </span>
                                     </Form>
                                 </Col>
                                 <Col xs={12} sm={4}>
                                     <Form
-                                        title='Start Time'
+                                        title='Your Locked Token'
                                     >
-                                        <span className="numberSpan">{bnDivdedByDecimals(circulatingSupply).toFormat(4)}</span>
+                                        <span className="numberSpan">
+                                            {bnDivdedByDecimals(purchasedToken.multipliedBy(price)).toFormat(0)} fpen ({bnDivdedByDecimals(purchasedToken).toFormat(4)}BNB)
+                                        </span>
                                     </Form>
                                 </Col>
                                 <Col xs={12} sm={4}>
                                     <Form
-                                        title='End Time'
+                                        title='Round Time'
                                     >
-                                        <span className="numberSpan">$ {tvl.toFormat(2)} ({bnDivdedByDecimals(totalStakedAmount).toFormat(4)} LP)</span>
+                                        <span className="numberSpan">
+                                            {
+                                                `${new Date(startTime * 1000).getFullYear()}/${new Date(startTime * 1000).getMonth() + 1}/${new Date(startTime * 1000).getDay()}
+                                                ${new Date(startTime * 1000).getHours()}:${new Date(startTime * 1000).getMinutes()}:${new Date(startTime * 1000).getSeconds()} ~ `
+                                            }
+                                        </span>
+                                        <span className="numberSpan">
+                                            {
+                                                `${new Date(endTime * 1000).getFullYear()}/${new Date(endTime * 1000).getMonth() + 1}/${new Date(endTime * 1000).getDay()}
+                                                ${new Date(endTime * 1000).getHours()}:${new Date(endTime * 1000).getMinutes()}:${new Date(endTime * 1000).getSeconds()}`
+                                            }
+                                        </span>
                                     </Form>
                                 </Col>
                             </Row>
                             <Row>
                                 <Col xs={12} sm={4}>
                                     <Form
-                                        title='Your fpen Balance'
+                                        title='Total Locked Token'
                                     >
-                                        <span className="numberSpan">{bnDivdedByDecimals(userBalance).toFormat(4)} fpen</span>
+                                        <span className="numberSpan">{bnDivdedByDecimals(lockedAmount, 9).toFormat(0)} fpen ({bnDivdedByDecimals(presaleAmount.dividedBy(price)).toFormat(4)}BNB)</span>
                                     </Form>
                                 </Col>
                                 <Col xs={12} sm={4}>
                                     <Form
-                                        title='Locked BNB'
+                                        title='Your fpen Balance'
                                     >
-                                        <span className="numberSpan">{new BigNumber(marketcap).toFormat(2)} BNB</span>
+                                        <span className="numberSpan">{bnDivdedByDecimals(userBalance, 9).toFormat(0)} fpen</span>
                                     </Form>
                                 </Col>
                                 <Col xs={12} sm={4}>
                                     <Form
                                         title='fpen Price'
                                     >
-                                        <span className="numberSpan">1BNB = {new BigNumber(titanPrice).toFormat(2)} fpen</span>
+                                        <span className="numberSpan">1BNB = {price.toFormat(0)} fpen</span>
                                     </Form>
                                 </Col>
                             </Row>
@@ -250,7 +263,13 @@ function Presale() {
                                                         />
                                                     </Col>
                                                     <Col md={12}>
-                                                        <Button onClickHandler={onStake} color='yellow'>Buy fpen</Button>
+                                                        <Button
+                                                            onClickHandler={onStake}
+                                                            color='yellow'
+                                                            disabled={!isOn}
+                                                        >
+                                                            BUY
+                                                        </Button>
                                                     </Col>
                                                 </Row>
                                             </Col>

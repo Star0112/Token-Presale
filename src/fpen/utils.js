@@ -1,13 +1,9 @@
 import { web3 } from './web3';
 import BigNumber from 'bignumber.js';
 
-const createEthAccount = () => {
-  return web3.eth.accounts.create();
-};
-
 const getBNBBalance = async (address) => {
   const bnbBalance = await web3.eth.getBalance(address);
-  return bnDivdedByDecimals(new BigNumber(bnbBalance));
+  return bnDivdedByDecimals(new BigNumber(bnbBalance), 18);
 }
 
 const callMethod = async (method, args = []) => {
@@ -140,7 +136,7 @@ const secondToDate = (seconds) => {
     return days === 1 ? "1 day" : days + " days";
   } else {
     const hours = parseInt(new BigNumber(seconds / 3600).dp(0, 0).toNumber());
-    
+
     if (hours !== 0) {
       return hours === 1 ? "1 hour" : hours + " hours";
     } else {
@@ -155,7 +151,6 @@ const secondToDate = (seconds) => {
 }
 
 export {
-  createEthAccount,
   getBNBBalance,
   callMethod,
   sendTransaction,
