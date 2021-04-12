@@ -17,7 +17,7 @@ const fpenContract = {
   address: fpenConrtractAddress,
   abi: fpenContractAbi,
   contract: IFpenContract,
-  decimals: 18
+  decimals: 9
 };
 
 const presaleContract = {
