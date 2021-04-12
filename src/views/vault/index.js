@@ -7,8 +7,8 @@ import {
     bnDivdedByDecimals,
     getETHBalance,
     bnToDec
-} from '../../titan/utils';
-import { getCirculatingSupply, getTotalSupply, getBalance } from '../../titan/token';
+} from '../../fpen/utils';
+import { getCirculatingSupply, getTotalSupply, getBalance } from '../../fpen/token';
 import {
     getTotalStakedAmount,
     getUserTotalStakedAmount,
@@ -26,7 +26,7 @@ import {
     getAPY,
     getBurnFee,
     getEarlyUnstakeFee
-} from '../../titan/vault';
+} from '../../fpen/vault';
 import { getTitanPrice, getMarketcap } from '../../subgraphs/api';
 import {
     networkId,
@@ -34,8 +34,8 @@ import {
     titanETHPairContract,
     yfiETHPairContract,
     wbtcETHPairContract
-} from '../../titan/contracts';
-import { getAmountOut } from '../../titan/univ2pair';
+} from '../../fpen/contracts';
+import { getAmountOut } from '../../fpen/univ2pair';
 import { Row, Col } from 'react-bootstrap'
 import { NotificationManager } from 'react-notifications';
 import Page from '../../components/Page';
@@ -48,7 +48,7 @@ import ConfirmModal from '../../components/ConfirmModal';
 import 'react-notifications/lib/notifications.css';
 import { css } from "@emotion/core";
 import ClockLoader from "react-spinners/ClockLoader";
-import { sendTransaction, mobileSendTransaction } from '../../titan/utils';
+import { sendTransaction, mobileSendTransaction } from '../../fpen/utils';
 import { isMobile } from 'react-device-detect';
 import './index.css';
 

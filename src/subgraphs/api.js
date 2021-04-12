@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
 // import { gql } from '@apollo/client';
 // import client from './apollo';
-import { titanETHPairContract, usdcETHPairContract } from '../titan/contracts';
-import { getCirculatingSupply } from '../titan/token';
-import { bnToDec, callMethod } from '../titan/utils';
+import { titanETHPairContract, usdcETHPairContract } from '../fpen/contracts';
+import { getCirculatingSupply } from '../fpen/token';
+import { bnToDec, callMethod } from '../fpen/utils';
 
 // const GET_PAIR_PRICE = gql`
 //   query GetExchangeRates {

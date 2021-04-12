@@ -5,7 +5,7 @@ import BigNumber from 'bignumber.js';
 import { getTitanPrice } from '../../subgraphs/api';
 import {
   networkId,
-} from '../../titan/contracts';
+} from '../../fpen/contracts';
 import {
   getWinners,
   getWinnersInfo,
@@ -13,8 +13,8 @@ import {
   getLotteryTotalPaidOut,
   getLotteryFee,
   getLotteryLimit
-} from '../../titan/vault';
-import { bnToDec } from '../../titan/utils';
+} from '../../fpen/vault';
+import { bnToDec } from '../../fpen/utils';
 import { Row, Col } from 'react-bootstrap'
 import PageHeader from '../../components/PageHeader';
 import Form from '../../components/Form';

@@ -8,7 +8,7 @@ import Layout from './layout';
 import Vault from './views/vault';
 import Lottery from './views/lottery';
 import FAQ from './views/faq';
-import { providerUrl, Web3, connector } from './titan/web3';
+import { providerUrl, Web3, connector } from './fpen/web3';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 

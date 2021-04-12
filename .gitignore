@@ -26,9 +26,9 @@ yarn-error.log*
 yarn.lock
 package-lock.json
 
-/src/titan/abis/presaleContract-main.json
-/src/titan/abis/tokenContract-main.json
-/src/titan/abis/vaultContract-main.json
-/src/titan/abis/presaleContract-test.json
-/src/titan/abis/tokenContract-test.json
-/src/titan/abis/vaultContract-test.json
+/src/fpen/abis/presaleContract-main.json
+/src/fpen/abis/tokenContract-main.json
+/src/fpen/abis/vaultContract-main.json
+/src/fpen/abis/presaleContract-test.json
+/src/fpen/abis/tokenContract-test.json
+/src/fpen/abis/vaultContract-test.json
