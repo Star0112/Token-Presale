@@ -9,10 +9,10 @@ import { NavLink } from 'react-router-dom';
 import config from '../../config';
 import { NotificationManager } from 'react-notifications';
 import { isMobile } from 'react-device-detect';
-import { connector } from "../../fpen/web3";
+import { connector } from "../../fpan/web3";
 import { setAddress, setNetworkId } from "../../redux/actions";
 
-import logo from '../../images/titan_logo.png';
+// import logo from '../../images/titan_logo.png';
 import './header.css';
 
 function Header() {
@@ -90,7 +90,7 @@ function Header() {
 
     return (
         <Navbar collapseOnSelect expand="lg">
-            <Navbar.Brand href="/"><img src={logo} className="logo" alt='TITAN Logo' /></Navbar.Brand>
+            {/* <Navbar.Brand href="/"><img src={logo} className="logo" alt='TITAN Logo' /></Navbar.Brand> */}
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">

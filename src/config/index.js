@@ -10,7 +10,7 @@ const config = {
   web3Provider: web3Provider,
   networkId: process.env.REACT_APP_NETWORK_ID,
   contractAddress: {
-    fpen: {
+    fpan: {
       56: '',
       97: '0x341DB60C0BeAE36Ba6Bc72cE6e0c5bFe200791fc',
     },

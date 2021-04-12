@@ -7,10 +7,10 @@ import {
     bnDivdedByDecimals,
     getBNBBalance,
     bnToDec
-} from '../../fpen/utils';
+} from '../../fpan/utils';
 import {
     getBalance
-} from '../../fpen/token';
+} from '../../fpan/token';
 import {
     getStartTime,
     getEndTime,
@@ -19,11 +19,11 @@ import {
     getPrice,
     getUnclimedPurchasedToken,
     getPurchasedToken,
-} from '../../fpen/presale';
+} from '../../fpan/presale';
 import {
     networkId,
     presaleContract,
-} from '../../fpen/contracts';
+} from '../../fpan/contracts';
 import { Row, Col } from 'react-bootstrap'
 import { NotificationManager } from 'react-notifications';
 import Page from '../../components/Page';
@@ -35,7 +35,7 @@ import ConfirmModal from '../../components/ConfirmModal';
 import 'react-notifications/lib/notifications.css';
 import { css } from "@emotion/core";
 import ClockLoader from "react-spinners/ClockLoader";
-import { sendTransaction, mobileSendTransaction } from '../../fpen/utils';
+import { sendTransaction, mobileSendTransaction } from '../../fpan/utils';
 import { isMobile } from 'react-device-detect';
 import './index.css';
 
@@ -184,7 +184,7 @@ function Presale() {
                                         title='Presale Token'
                                     >
                                         <span className="numberSpan">
-                                            {bnDivdedByDecimals(presaleAmount.multipliedBy(price)).toFormat(0)} fpen ({bnDivdedByDecimals(presaleAmount).toFormat(2)}BNB)
+                                            {bnDivdedByDecimals(presaleAmount.multipliedBy(price)).toFormat(0)} fpan ({bnDivdedByDecimals(presaleAmount).toFormat(2)}BNB)
                                         </span>
                                     </Form>
                                 </Col>
@@ -193,7 +193,7 @@ function Presale() {
                                         title='Your Locked Token'
                                     >
                                         <span className="numberSpan">
-                                            {bnDivdedByDecimals(purchasedToken.multipliedBy(price)).toFormat(0)} fpen ({bnDivdedByDecimals(purchasedToken).toFormat(4)}BNB)
+                                            {bnDivdedByDecimals(purchasedToken.multipliedBy(price)).toFormat(0)} fpan ({bnDivdedByDecimals(purchasedToken).toFormat(4)}BNB)
                                         </span>
                                     </Form>
                                 </Col>
@@ -221,34 +221,34 @@ function Presale() {
                                     <Form
                                         title='Total Locked Token'
                                     >
-                                        <span className="numberSpan">{bnDivdedByDecimals(lockedAmount, 9).toFormat(0)} fpen ({bnDivdedByDecimals(presaleAmount.dividedBy(price)).toFormat(4)}BNB)</span>
+                                        <span className="numberSpan">{bnDivdedByDecimals(lockedAmount, 9).toFormat(0)} fpan ({bnDivdedByDecimals(presaleAmount.dividedBy(price)).toFormat(4)}BNB)</span>
                                     </Form>
                                 </Col>
                                 <Col xs={12} sm={4}>
                                     <Form
-                                        title='Your fpen Balance'
+                                        title='Your fpan Balance'
                                     >
-                                        <span className="numberSpan">{bnDivdedByDecimals(userBalance, 9).toFormat(0)} fpen</span>
+                                        <span className="numberSpan">{bnDivdedByDecimals(userBalance, 9).toFormat(0)} fpan</span>
                                     </Form>
                                 </Col>
                                 <Col xs={12} sm={4}>
                                     <Form
-                                        title='fpen Price'
+                                        title='fpan Price'
                                     >
-                                        <span className="numberSpan">1BNB = {price.toFormat(0)} fpen</span>
+                                        <span className="numberSpan">1BNB = {price.toFormat(0)} fpan</span>
                                     </Form>
                                 </Col>
                             </Row>
 
                             <PageHeader
-                                title='fpen-BNB BUY'
+                                title='fpan-BNB BUY'
                             />
 
                             <Row>
-                                <Col xs={0} md={4} />
-                                <Col xs={12} md={4} style={{ "lineHeight": "1.3" }}>
+                                <Col xs={0} md={3} />
+                                <Col xs={12} md={6} style={{ "lineHeight": "1.3" }}>
                                     <Form
-                                        title={'BUY fpen'}
+                                        title={'BUY fpan'}
                                     >
                                         <Row className="vaultDiv">
                                             <Col xs={12}>
@@ -276,7 +276,7 @@ function Presale() {
                                         </Row>
                                     </Form>
                                 </Col>
-                                <Col xs={0} md={4} />
+                                <Col xs={0} md={3} />
                             </Row>
                         </>
                     ) :

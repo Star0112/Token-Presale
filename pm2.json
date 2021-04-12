@@ -1,7 +1,7 @@
 {
 	"apps": [
 		{
-			"name": "FPEN-Presale",
+			"name": "FPAN-Presale",
 			"script": "npm",
 			"args": "start"
 		}

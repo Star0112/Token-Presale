@@ -1,15 +1,15 @@
 import React from 'react';
-import {Row, Col} from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import Input from '../Input';
 import LabelButton from '../Button/labelButton';
 import './betctrl.css';
 
 
-function BetCtrl({label, name, balance, currentVal, onChangeHandler}) {
-    
+function BetCtrl({ label, name, balance, currentVal, onChangeHandler }) {
+
     const onMax = (e) => {
         let event = {
-            target : {
+            target: {
                 name: name,
                 value: balance
             }
@@ -18,7 +18,7 @@ function BetCtrl({label, name, balance, currentVal, onChangeHandler}) {
     }
 
     return (
-        <Row className='mt-2 mb-2'>
+        <Row style={{ marginTop: 30, marginBottom: 30 }}>
             <Col xs={10}>
                 <span className="">{label}: {balance.toFixed(4)}</span>
             </Col>
@@ -26,7 +26,7 @@ function BetCtrl({label, name, balance, currentVal, onChangeHandler}) {
                 <LabelButton onClickHandler={onMax}>Max</LabelButton>
             </Col>
             <Col sm={12} className='mt-2'>
-                <Input name={name} value={currentVal} onChangeHandler={onChangeHandler}/>
+                <Input name={name} value={currentVal} onChangeHandler={onChangeHandler} />
             </Col>
         </Row>
     );
