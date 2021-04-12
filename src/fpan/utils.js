@@ -1,6 +1,11 @@
 import { web3 } from './web3';
 import BigNumber from 'bignumber.js';
 
+const customizedDate = (timestamp) => {
+  return (`${new Date(timestamp).getFullYear()}/${new Date(timestamp).getMonth() + 1}/${new Date(timestamp).getDate()}
+  ${new Date(timestamp).getHours() > 9 ? new Date(timestamp).getHours() : `0${new Date(timestamp).getHours()}`}:${new Date(timestamp).getMinutes() > 9 ? new Date(timestamp).getMinutes() : `0${new Date(timestamp).getMinutes()}`}:${new Date(timestamp).getSeconds() > 9 ? new Date(timestamp).getSeconds() : `0${new Date(timestamp).getSeconds()}`}`)
+}
+
 const getBNBBalance = async (address) => {
   const bnbBalance = await web3.eth.getBalance(address);
   return bnDivdedByDecimals(new BigNumber(bnbBalance), 18);
@@ -151,6 +156,7 @@ const secondToDate = (seconds) => {
 }
 
 export {
+  customizedDate,
   getBNBBalance,
   callMethod,
   sendTransaction,

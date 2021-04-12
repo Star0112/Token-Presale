@@ -35,7 +35,7 @@ import ConfirmModal from '../../components/ConfirmModal';
 import 'react-notifications/lib/notifications.css';
 import { css } from "@emotion/core";
 import ClockLoader from "react-spinners/ClockLoader";
-import { sendTransaction, mobileSendTransaction } from '../../fpan/utils';
+import { sendTransaction, mobileSendTransaction, customizedDate } from '../../fpan/utils';
 import { isMobile } from 'react-device-detect';
 import './index.css';
 
@@ -67,7 +67,6 @@ function Presale() {
 
     const [progress, setProgress] = useState(false);
 
-    const [marketcap, setMarketcap] = useState(0);
     const [userBalance, setUserBalance] = useState(new BigNumber(0));
     const [minDepositAmount, setMinDepositAmount] = useState(new BigNumber(0));
 
@@ -202,16 +201,7 @@ function Presale() {
                                         title='Round Time'
                                     >
                                         <span className="numberSpan">
-                                            {
-                                                `${new Date(startTime * 1000).getFullYear()}/${new Date(startTime * 1000).getMonth() + 1}/${new Date(startTime * 1000).getDay()}
-                                                ${new Date(startTime * 1000).getHours()}:${new Date(startTime * 1000).getMinutes()}:${new Date(startTime * 1000).getSeconds()} ~ `
-                                            }
-                                        </span>
-                                        <span className="numberSpan">
-                                            {
-                                                `${new Date(endTime * 1000).getFullYear()}/${new Date(endTime * 1000).getMonth() + 1}/${new Date(endTime * 1000).getDay()}
-                                                ${new Date(endTime * 1000).getHours()}:${new Date(endTime * 1000).getMinutes()}:${new Date(endTime * 1000).getSeconds()}`
-                                            }
+                                            {customizedDate(startTime * 1000)} {" ~ "} {customizedDate(endTime * 1000)}
                                         </span>
                                     </Form>
                                 </Col>
