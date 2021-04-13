@@ -104,7 +104,7 @@ function Header() {
                                 (<Button variant="outline-warning" style={{ whiteSpace: 'nowrap' }} onClick={() => onConnectClick()}>Wallet Connect</Button>) :
                                 (<Button variant="outline-info"
                                     onClick={e => {
-                                        window.open(`https://etherscan.io/address/${address}`, '_blank');
+                                        window.open(`https://bscscan.com/address/${address}`, '_blank');
                                     }}>
                                     {`${address.substring(0, 7)}...${address.substring(address.length - 5, address.length)}`}
                                 </Button>)
