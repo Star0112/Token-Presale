@@ -25,7 +25,7 @@
 	},
 	{
 		"inputs": [],
-		"name": "FPENToken",
+		"name": "FPANToken",
 		"outputs": [
 			{
 				"internalType": "address",
@@ -350,7 +350,7 @@
 	},
 	{
 		"inputs": [],
-		"name": "withdrawFPENAfterPresaleOver",
+		"name": "withdrawFPANAfterPresaleOver",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
