@@ -94,13 +94,11 @@ function Presale() {
     }, [address])
 
     useEffect(async () => {
-        if (address) {
-            setStartTime(await getStartTime());
-            setEndTime(await getEndTime());
-            setPresaleAmount(await getPresaleCap());
-            setPrice(await getPrice());
-        }
-    }, [address]);
+        setStartTime(await getStartTime());
+        setEndTime(await getEndTime());
+        setPresaleAmount(await getPresaleCap());
+        setPrice(await getPrice());
+    }, []);
 
 
     const onChangeHandler = (event) => {
