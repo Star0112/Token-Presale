@@ -9,7 +9,7 @@ import { NavLink } from 'react-router-dom';
 import config from '../../config';
 import { NotificationManager } from 'react-notifications';
 import { isMobile } from 'react-device-detect';
-import { connector } from "../../fpan/web3";
+import { connector } from "../../main/web3";
 import { setAddress, setNetworkId } from "../../redux/actions";
 
 import logo from '../../images/logo.png';

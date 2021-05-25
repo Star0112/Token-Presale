@@ -3,20 +3,20 @@
 import { web3 } from './web3';
 import config from '../config';
 
-import fpanContractAbi from './abis/fpanContract.json';
+import tokenContractAbi from './abis/tokenContract.json';
 import presaleContractAbi from './abis/presaleContract.json';
 
 const networkId = config.networkId;
-const fpanConrtractAddress = config.contractAddress.fpan[networkId];
-const IFpanContract = new web3.eth.Contract(fpanContractAbi, fpanConrtractAddress);
+const tokenConrtractAddress = config.contractAddress.token[networkId];
+const ITokenContract = new web3.eth.Contract(tokenContractAbi, tokenConrtractAddress);
 
 const presaleContractAddress = config.contractAddress.presale[networkId];
 const IPresaleContract = new web3.eth.Contract(presaleContractAbi, presaleContractAddress);
 
-const fpanContract = {
-  address: fpanConrtractAddress,
-  abi: fpanContractAbi,
-  contract: IFpanContract,
+const tokenContract = {
+  address: tokenConrtractAddress,
+  abi: tokenContractAbi,
+  contract: ITokenContract,
   decimals: 9
 };
 
@@ -28,6 +28,6 @@ const presaleContract = {
 
 export {
   networkId,
-  fpanContract,
+  tokenContract,
   presaleContract,
 };

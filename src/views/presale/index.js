@@ -7,10 +7,10 @@ import {
     bnDivdedByDecimals,
     getBNBBalance,
     bnToDec
-} from '../../fpan/utils';
+} from '../../main/utils';
 import {
     getBalance
-} from '../../fpan/token';
+} from '../../main/token';
 import {
     getStartTime,
     getEndTime,
@@ -19,11 +19,11 @@ import {
     getPrice,
     getUnclimedPurchasedToken,
     getPurchasedToken,
-} from '../../fpan/presale';
+} from '../../main/presale';
 import {
     networkId,
     presaleContract,
-} from '../../fpan/contracts';
+} from '../../main/contracts';
 import { Row, Col } from 'react-bootstrap'
 import { NotificationManager } from 'react-notifications';
 import Page from '../../components/Page';
@@ -35,7 +35,7 @@ import ConfirmModal from '../../components/ConfirmModal';
 import 'react-notifications/lib/notifications.css';
 import { css } from "@emotion/core";
 import ClockLoader from "react-spinners/ClockLoader";
-import { sendTransaction, mobileSendTransaction, customizedDate } from '../../fpan/utils';
+import { sendTransaction, mobileSendTransaction, customizedDate } from '../../main/utils';
 import { isMobile } from 'react-device-detect';
 import './index.css';
 
@@ -47,8 +47,6 @@ const override = css`
 function Presale() {
     const address = useSelector(state => state.authUser.address);
     const currentNetworkId = useSelector(state => state.authUser.networkId);
-
-
 
     const [userBNBBalance, setUserBNBBalance] = useState(new BigNumber(0));
     const [startTime, setStartTime] = useState(0);
@@ -96,11 +94,13 @@ function Presale() {
     }, [address])
 
     useEffect(async () => {
-        setStartTime(await getStartTime());
-        setEndTime(await getEndTime());
-        setPresaleAmount(await getPresaleCap());
-        setPrice(await getPrice());
-    }, []);
+        if (address) {
+            setStartTime(await getStartTime());
+            setEndTime(await getEndTime());
+            setPresaleAmount(await getPresaleCap());
+            setPrice(await getPrice());
+        }
+    }, [address]);
 
 
     const onChangeHandler = (event) => {
@@ -166,7 +166,7 @@ function Presale() {
                                         title='Presale Token'
                                     >
                                         <span className="numberSpan">
-                                            {bnDivdedByDecimals(presaleAmount.multipliedBy(price)).toFormat(0)} fpan ({bnDivdedByDecimals(presaleAmount).toFormat(2)}BNB)
+                                            {bnDivdedByDecimals(presaleAmount.multipliedBy(price)).toFormat(0)} MUSK ({bnDivdedByDecimals(presaleAmount).toFormat(2)}BNB)
                                         </span>
                                     </Form>
                                 </Col>
@@ -175,7 +175,7 @@ function Presale() {
                                         title='Your Locked Token'
                                     >
                                         <span className="numberSpan">
-                                            {bnDivdedByDecimals(purchasedToken, 9).toFormat(0)} fpan ({bnDivdedByDecimals(purchasedToken.dividedBy(price), 9).toFormat(4)}BNB)
+                                            {bnDivdedByDecimals(purchasedToken, 9).toFormat(0)} MUSK ({bnDivdedByDecimals(purchasedToken.dividedBy(price), 9).toFormat(4)}BNB)
                                         </span>
                                     </Form>
                                 </Col>
@@ -194,34 +194,34 @@ function Presale() {
                                     <Form
                                         title='Total Locked Token'
                                     >
-                                        <span className="numberSpan">{bnDivdedByDecimals(lockedAmount, 9).toFormat(0)} fpan ({bnDivdedByDecimals(lockedAmount.dividedBy(price), 9).toFormat(4)}BNB)</span>
+                                        <span className="numberSpan">{bnDivdedByDecimals(lockedAmount, 9).toFormat(0)} MUSK ({bnDivdedByDecimals(lockedAmount.dividedBy(price), 9).toFormat(4)}BNB)</span>
                                     </Form>
                                 </Col>
                                 <Col xs={12} sm={4}>
                                     <Form
-                                        title='Your fpan Balance'
+                                        title='Your MUSK Balance'
                                     >
-                                        <span className="numberSpan">{bnDivdedByDecimals(userBalance, 9).toFormat(0)} fpan</span>
+                                        <span className="numberSpan">{bnDivdedByDecimals(userBalance, 9).toFormat(0)} MUSK</span>
                                     </Form>
                                 </Col>
                                 <Col xs={12} sm={4}>
                                     <Form
-                                        title='fpan Price'
+                                        title='MUSK Price'
                                     >
-                                        <span className="numberSpan">1BNB = {price.toFormat(0)} fpan</span>
+                                        <span className="numberSpan">1BNB = {price.toFormat(0)} MUSK</span>
                                     </Form>
                                 </Col>
                             </Row>
 
                             <PageHeader
-                                title='fpan-BNB BUY'
+                                title='MUSK-BNB BUY'
                             />
 
                             <Row>
                                 <Col xs={0} md={3} />
                                 <Col xs={12} md={6} style={{ "lineHeight": "1.3" }}>
                                     <Form
-                                        title={'BUY fpan'}
+                                        title={'BUY MUSK'}
                                     >
                                         <Row className="vaultDiv">
                                             <Col xs={12}>
@@ -262,7 +262,7 @@ function Presale() {
                                         <Row>
                                             <Col xs={12} className='pt-3'>
                                                 <span>Unable to connect wallet</span><br />
-                                                <span>Please change your MetaMask to access the {networkId === '56' ? 'Main' : 'Test'} BSC Network.</span>
+                                                <span>Please change your MetaMask to access the {networkId === '56' ? 'Test' : 'Main'} BSC Network.</span>
                                             </Col>
                                         </Row>
                                     </Form>

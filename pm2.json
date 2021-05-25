@@ -1,7 +1,7 @@
 {
 	"apps": [
 		{
-			"name": "FPAN-Presale",
+			"name": "MUSK-Presale",
 			"script": "npm",
 			"args": "start"
 		}

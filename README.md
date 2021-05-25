@@ -1,1 +1,1 @@
-# FPAN-BNB Presale DApp
+# BNB Presale DApp

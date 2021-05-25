@@ -1,22 +1,20 @@
 require('dotenv').config();
 
-const web3Provider = process.env.REACT_APP_NETWORK_ID === '1'
+const web3Provider = process.env.REACT_APP_NETWORK_ID === '56'
   ? process.env.REACT_APP_MAIN_WEB3_PROVIDER
-  : (process.env.REACT_APP_NETWORK_ID === '3' 
-  ? process.env.REACT_APP_TEST_WEB3_PROVIDER
-  : process.env.REACT_APP_KOVAN_WEB3_PROVIDER)
+  : process.env.REACT_APP_TEST_WEB3_PROVIDER
 
 const config = {
   web3Provider: web3Provider,
   networkId: process.env.REACT_APP_NETWORK_ID,
   contractAddress: {
-    fpan: {
-      56: '0x141636a93652c76F4Ffc5C9f7Fd9B74F4F46e3c5',
-      97: '0x341DB60C0BeAE36Ba6Bc72cE6e0c5bFe200791fc',
+    token: {
+      56: '0x7B632ac6B3401C4989aE1b4978Bde62400e31eD3',
+      97: '0x09d8f2a374d32ad4470f3f2f2ed401a3b160065c',
     },
     presale: {
-      56: '0x38Cc1E72272946367AbB02435fA20F3AEaEC2872',
-      97: '0xc7e3ea78717eACF10507c63E3708Aed213678B75',
+      56: '0xAd72807Dc755FA4D17Bc95162dccee84954616d5',
+      97: '0x6FF39060964f9c8Fe291C8E14C2212eF9C75385e',
     }
   }
 }

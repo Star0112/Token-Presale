@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import { setAddress, setNetworkId, setError } from "./redux/actions";
 import Layout from './layout';
 import Presale from './views/presale';
-import { providerUrl, Web3, connector } from './fpan/web3';
+import { providerUrl, Web3, connector } from './main/web3';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
