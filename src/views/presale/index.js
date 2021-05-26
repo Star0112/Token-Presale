@@ -260,7 +260,7 @@ function Presale() {
                                         <Row>
                                             <Col xs={12} className='pt-3'>
                                                 <span>Unable to connect wallet</span><br />
-                                                <span>Please change your MetaMask to access the {networkId === '56' ? 'Test' : 'Main'} BSC Network.</span>
+                                                <span>Please change your MetaMask to access the {networkId === '56' ? 'Main' : 'Test'} BSC Network.</span>
                                             </Col>
                                         </Row>
                                     </Form>
